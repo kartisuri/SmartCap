@@ -26,5 +26,5 @@ if __name__ == '__main__':
     try:
         listener()
     except KeyboardInterrupt:
-        print "  Quit"
+        print "Quit"
         GPIO.cleanup()

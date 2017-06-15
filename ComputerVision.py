@@ -82,16 +82,19 @@ class ComputerVision ():
         camera = picamera.PiCamera()
         camera.resolution = (1920, 1080)
         camera.rotation = 90 # you may not need this; depends on how you set up your camera. 
-        time.sleep(3.0)
+        time.sleep(2.0)
         sound('Capturing...')
         imageName = r'/home/pi/image.jpg'
         camera.capture(imageName)
         time.sleep(2.0)
+        camera.close()
         return imageName
 
 def main():
     global prev_inp
+    cv = ComputerVision()
     while True:
+        ComputerVision.validateInternetConnection()
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(SENSOR, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         inp = GPIO.input(SENSOR)
@@ -107,7 +110,6 @@ def main():
         time.sleep(0.05)
 
 if __name__ == '__main__':
-    cv = ComputerVision()
     sound('Press Left Button to describe the scene!')
     try:
         main()
